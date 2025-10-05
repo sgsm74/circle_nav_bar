@@ -224,7 +224,12 @@ class _CircleNavBarState extends State<CircleNavBar>
 
   double getPosition(int i) {
     int itemCnt = widget.activeIcons.length;
-    return i / itemCnt + (1 / itemCnt) / 2;
+    double basePosition = i / itemCnt;
+    if (Directionality.of(context) == TextDirection.rtl) {
+      return ((1 - basePosition) - (1 / itemCnt) / 2);
+    } else {
+      return basePosition + (1 / itemCnt) / 2;
+    }
   }
 
   @override

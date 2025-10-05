@@ -199,8 +199,7 @@ class _CircleNavBarState extends State<CircleNavBar>
     tabAc = AnimationController(
         vsync: this,
         duration: Duration(milliseconds: widget.tabDurationMillSec))
-      ..addListener(() => setState(() {}))
-      ..value = getPosition(widget.activeIndex);
+      ..addListener(() => setState(() {}));
     activeIconAc = AnimationController(
         vsync: this,
         duration: Duration(milliseconds: widget.iconDurationMillSec))
@@ -213,7 +212,13 @@ class _CircleNavBarState extends State<CircleNavBar>
     super.didUpdateWidget(oldWidget);
     _animation();
   }
-
+  
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    tabAc.value = getPosition(widget.activeIndex);
+  }
+  
   void _animation() {
     final nextPosition = getPosition(widget.activeIndex);
     tabAc.stop();
